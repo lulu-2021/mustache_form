@@ -1,6 +1,7 @@
 require 'mustache'
 #
-module Mustache::FormHelper
+module MustacheForm
+  module FormHelper
 
   def custom_form_tag(url: nil, html: nil)
     # When the Mustache value is a callable object, such as a function or lambda, the
@@ -65,4 +66,5 @@ class FormedMustache < Mustache
     str
   end
 
+end
 end

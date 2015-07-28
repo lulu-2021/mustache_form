@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'form_helper'
 #
 class MockFormHelper
-  include Mustache::FormHelper
+  include MustacheForm::FormHelper
 end
 #
 describe MockFormHelper do
