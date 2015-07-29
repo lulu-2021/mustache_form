@@ -56,6 +56,7 @@ module MustacheForm
 
     def initialize(data)
       data.each_pair do |key, value|
+        #puts "\n\nFormedMustache k:#{key}, v: #{value}\n\n"
         FormedMustache.send(:define_method, key, proc{value})
       end
     end
