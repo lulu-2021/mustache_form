@@ -13,9 +13,6 @@ require 'rack'
 #
 require 'active_support'
 require 'active_support/core_ext'
+#
 require 'mustache_form'
 #
-# - this loads the actual form helper
-#require 'mustache_form/load_form_helper'
-# - then run the load process that is normally handled by rails!
-#LoadFormHelper.load

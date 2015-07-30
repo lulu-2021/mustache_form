@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'form_helper'
 #
+MustacheForm.config.simple_form_enabled = false
+#
 class DummyHtmlSafe
   def initialize(text, obj); @text = text; @obj = obj; end
   def html_safe
@@ -16,25 +18,25 @@ end
 class MockFormView < Mustache
   include MustacheForm::FormHelper
 
-  def test_form_tag
+  def test_form_tag(simple_form = false)
     custom_form_tag do |form|
       { key: form[:key], value: form[:value] }
     end
   end
 
-  def test_form_for(object)
+  def test_form_for(object, simple_form = false)
     custom_form_for(object) do |form|
       { key: form[:key], value: form[:value] }
     end
   end
 
   # Mock the form_tag since we are only interested in passing the values through..
-  def form_tag(url: nil, html: nil, &block)
+  def form_tag(url =  nil, html =  nil, &block)
     yield({ key: 'first_name', value: 'Jo' })
   end
 
   # Mock the form_for helper since we are only interested in passing the values through..
-  def form_for(object, url: nil, html: nil, &block)
+  def form_for(object, url = nil, html = nil, &block)
     yield({ key: object.id, value: object.name })
   end
 end
@@ -65,10 +67,5 @@ describe MockFormView do
   it 'has the correct rails form helper methods' do
     expect(subject).to respond_to(:custom_form_for)
     expect(subject).to respond_to(:custom_form_tag)
-  end
-
-  it 'has the correct simple_form form helper methods' do
-    expect(subject).to respond_to(:custom_simple_form_for)
-    expect(subject).to respond_to(:custom_simple_form_tag)
   end
 end
