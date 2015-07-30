@@ -35,7 +35,5 @@ Gem::Specification.new do |spec|
   #
   # Runtime dependencies
   #
-  spec.add_runtime_dependency 'mustache'
-  spec.add_runtime_dependency 'simple_form'
   spec.add_runtime_dependency 'rails', '>= 4.1.1'
 end
