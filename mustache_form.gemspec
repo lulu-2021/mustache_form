@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   #
   # - gem related ones
   spec.add_development_dependency 'mustache'
+  spec.add_development_dependency 'simple_form'
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec-given'
@@ -34,5 +35,7 @@ Gem::Specification.new do |spec|
   #
   # Runtime dependencies
   #
+  spec.add_runtime_dependency 'mustache'
+  spec.add_runtime_dependency 'simple_form'
   spec.add_runtime_dependency 'rails', '>= 4.1.1'
 end
