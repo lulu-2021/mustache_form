@@ -6,7 +6,7 @@ require 'mustache'
 module MustacheForm
   module FormHelper
 
-    def mustache_form_tag(url = nil, html = nil)
+    def mustache_form_tag(url: nil, html: nil)
       if MustacheForm::FormHelper::SIMPLE_FORM_ENABLED
         form_helper_method = :simple_form_tag
       else
@@ -20,7 +20,7 @@ module MustacheForm
       end
     end
 
-    def mustache_form_for(object, url = nil, html = nil)
+    def mustache_form_for(object, url: nil, html: nil)
       if MustacheForm::FormHelper::SIMPLE_FORM_ENABLED
         form_helper_method = :simple_form_for
       else
