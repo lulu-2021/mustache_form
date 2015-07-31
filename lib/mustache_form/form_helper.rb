@@ -6,8 +6,12 @@ require 'mustache'
 module MustacheForm
   module FormHelper
 
-    def mustache_form_tag(url = nil, html = nil, form_helper_method = :form_tag)
-      form_helper_method = :simple_form_tag if SIMPLE_FORM_ENABLED
+    def mustache_form_tag(url = nil, html = nil)
+      if MustacheForm::FormHelper::SIMPLE_FORM_ENABLED
+        form_helper_method = :simple_form_tag
+      else
+        form_helper_method = :form_tag
+      end
       lambda do |text|
         send(form_helper_method, url: url, html: html) do |f|
           obj = FormedMustache.new(yield(f))
@@ -16,8 +20,12 @@ module MustacheForm
       end
     end
 
-    def mustache_form_for(object, url = nil, html = nil, form_helper_method = :form_for)
-      form_helper_method = :simple_form_for if SIMPLE_FORM_ENABLED
+    def mustache_form_for(object, url = nil, html = nil)
+      if MustacheForm::FormHelper::SIMPLE_FORM_ENABLED
+        form_helper_method = :simple_form_for
+      else
+        form_helper_method = :form_for
+      end
       lambda do |text|
         send(form_helper_method, object, url: url, html: html) do |f|
           obj = FormedMustache.new(yield(f))
