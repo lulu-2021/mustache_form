@@ -26,10 +26,13 @@ module MustacheForm
       end
     end
 
-    class << self
-      alias_method :custom_form_tag, :mustache_form_tag
-      alias_method :custom_form_for, :mustache_form_for
+    def self.included(base)
+      base.class_eval do
+        alias_method :custom_form_tag, :mustache_form_tag
+        alias_method :custom_form_for, :mustache_form_for
+      end
     end
+
   end
 
   class FormedMustache < Mustache
