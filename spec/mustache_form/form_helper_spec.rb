@@ -1,7 +1,9 @@
 require 'spec_helper'
-require 'form_helper'
 #
-MustacheForm.config.simple_form_enabled = false
+#MustacheForm.config.simple_form_enabled = true
+SIMPLE_FORM_ENABLED = MustacheForm.config.simple_form_enabled || false
+#
+require 'form_helper'
 #
 class DummyHtmlSafe
   def initialize(text, obj); @text = text; @obj = obj; end
@@ -18,14 +20,14 @@ end
 class MockFormView < Mustache
   include MustacheForm::FormHelper
 
-  def test_form_tag(simple_form = false)
-    custom_form_tag do |form|
+  def test_form_tag(form_helper = :form_tag)
+    mustache_form_tag(nil, nil, form_helper) do |form|
       { key: form[:key], value: form[:value] }
     end
   end
 
-  def test_form_for(object, simple_form = false)
-    custom_form_for(object) do |form|
+  def test_form_for(object, form_helper = :form_for)
+    mustache_form_for(object, nil, nil, form_helper) do |form|
       { key: form[:key], value: form[:value] }
     end
   end
@@ -39,6 +41,16 @@ class MockFormView < Mustache
   def form_for(object, url = nil, html = nil, &block)
     yield({ key: object.id, value: object.name })
   end
+
+  # Mock the form_tag since we are only interested in passing the values through..
+  def simple_form_tag(url =  nil, html =  nil, &block)
+    yield({ key: 'first_name', value: 'Jo' })
+  end
+
+  # Mock the form_for helper since we are only interested in passing the values through..
+  def simple_form_for(object, url = nil, html = nil, &block)
+    yield({ key: object.id, value: object.name })
+  end
 end
 #
 class MockModel
@@ -47,6 +59,7 @@ class MockModel
 end
 #
 describe MockFormView do
+
   let(:test_id) { '1234' }
   let(:test_name) { 'James' }
   let(:subject) { MockFormView.new }
@@ -64,8 +77,18 @@ describe MockFormView do
     expect(subject.test_form_tag.call(input_value)).to eq expected_value
   end
 
+  it 'correctly handles the simple_form_for helper' do
+    input_value, expected_value = test_id, test_name
+    expect(subject.test_form_for(test_model, :simple_form_for).call(input_value)).to eq expected_value
+  end
+
+  it 'correctly handles the simple_form_tag helper' do
+    input_value, expected_value = "first_name", "Jo"
+    expect(subject.test_form_tag(:simple_form_tag).call(input_value)).to eq expected_value
+  end
+
   it 'has the correct rails form helper methods' do
-    expect(subject).to respond_to(:custom_form_for)
-    expect(subject).to respond_to(:custom_form_tag)
+    expect(subject).to respond_to(:mustache_form_for)
+    expect(subject).to respond_to(:mustache_form_tag)
   end
 end

@@ -12,5 +12,3 @@ TestMustacheFormApp::Application.config.secret_token = '123456789012345678901234
 TestMustacheFormApp::Application.config.secret_key_base = '1234567890123456789012345678901234567890'
 TestMustacheFormApp::Application.initialize!
 #
-#
-#
