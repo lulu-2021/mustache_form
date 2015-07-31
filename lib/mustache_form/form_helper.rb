@@ -27,8 +27,8 @@ module MustacheForm
     end
 
     class << self
-      alias_method :custom_form_tag :mustache_form_tag
-      alias_method :custom_form_for :mustache_form_for
+      alias_method :custom_form_tag, :mustache_form_tag
+      alias_method :custom_form_for, :mustache_form_for
     end
   end
 
