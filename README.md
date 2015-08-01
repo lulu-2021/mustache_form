@@ -77,7 +77,7 @@ module People
     include Wrapper::People::Form
 
     def labeled_simple_form
-      custom_simple_form_for(@person, url: {controller: "people", action: "create"}) do |f|
+      mustache_simple_form_for(@person, url: {controller: "people", action: "create"}) do |f|
         simple_form_common(f)
       end
     end
