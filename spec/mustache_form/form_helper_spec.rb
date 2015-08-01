@@ -1,9 +1,4 @@
 require 'spec_helper'
-#
-#MustacheForm.config.simple_form_enabled = true
-#SIMPLE_FORM_ENABLED = MustacheForm.config.simple_form_enabled || false
-
-#
 require 'form_helper'
 #
 class DummyHtmlSafe
