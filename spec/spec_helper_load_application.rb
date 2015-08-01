@@ -1,10 +1,11 @@
-# Setup a test app
+# in the real rails app this will happen in the initializer
+MustacheForm.setup do |config|
+  config.simple_form_enabled = true
+end
 #
 module TestMustacheFormApp
   class Application < ::Rails::Application
-    # This is the only configuration requirement for the mustache_form gem
     puts "\n\n MustacheForm TestApp: Rails Starting...\n\n"
-    config.mustache_form.simple_form_enabled = true
   end
 end
 #

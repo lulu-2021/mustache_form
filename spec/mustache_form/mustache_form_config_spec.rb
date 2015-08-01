@@ -1,11 +1,11 @@
 require 'spec_helper'
 #
-describe MustacheForm::Config do
+describe MustacheForm do
   Given(:config) {
-    MustacheForm.configure do |config|
+    MustacheForm.setup do |config|
       config.simple_form_enabled = true
     end
-    MustacheForm.config
+    MustacheForm
   }
 
   Then{ expect(config.simple_form_enabled).to eq true }

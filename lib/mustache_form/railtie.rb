@@ -1,20 +1,14 @@
 #
 module MustacheForm
   class Railtie < Rails::Railtie
-    #
-    # enable namespaced configuration in Rails environments
-    config.mustache_form = ActiveSupport::OrderedOptions.new
-    #
-    initializer :after_initialize do |app|
-      simple_form_enabled = app.config.mustache_form[:simple_form_enabled] || false
-      #
-      MustacheForm.configure do |config|
-        config.simple_form_enabled = simple_form_enabled
+    config.eager_load_namespaces << MustacheForm
+
+    config.after_initialize do
+      unless MustacheForm.configured?
+        warn 'Mustache Form is not configured in the application and will use the default values.' +
+          ' Use `rails generate mustache_form:install` to generate the Mustache Form configuration.'
       end
-      #
-      # dynamically load the client rails app module that has the stuff
-      #LoadLists.load
-    end
+    end  
   end
 end
 #

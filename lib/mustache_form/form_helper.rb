@@ -7,13 +7,9 @@ module MustacheForm
   module FormHelper
 
     def mustache_form_tag(url: nil, html: nil)
-      if MustacheForm::FormHelper::SIMPLE_FORM_ENABLED
-        form_helper_method = :simple_form_tag
-      else
-        form_helper_method = :form_tag
-      end
+      MustacheForm.simple_form_enabled == true ? formable = :simple_form_tag : formable = :form_tag
       lambda do |text|
-        send(form_helper_method, url: url, html: html) do |f|
+        send(formable, url: url, html: html) do |f|
           obj = FormedMustache.new(yield(f))
           Mustache.render(text, obj).html_safe
         end
@@ -21,13 +17,9 @@ module MustacheForm
     end
 
     def mustache_form_for(object, url: nil, html: nil)
-      if MustacheForm::FormHelper::SIMPLE_FORM_ENABLED
-        form_helper_method = :simple_form_for
-      else
-        form_helper_method = :form_for
-      end
+      MustacheForm.simple_form_enabled == true ? formable = :simple_form_for : formable = :form_for
       lambda do |text|
-        send(form_helper_method, object, url: url, html: html) do |f|
+        send(formable, object, url: url, html: html) do |f|
           obj = FormedMustache.new(yield(f))
           Mustache.render(text, obj).html_safe
         end
