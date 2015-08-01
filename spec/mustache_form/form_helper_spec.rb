@@ -19,13 +19,13 @@ class MockFormView < Mustache
   attr_accessor :simple_form_called # to verify that we are using simple_form
 
   def test_form_tag
-    mustache_form_tag(url: nil, html: nil) do |form|
+    mustache_form_tag(url_for_options: {}, html_options: {}) do |form|
       { key: form[:key], value: form[:value] }
     end
   end
 
   def test_form_for(object)
-    mustache_form_for(object, url: nil, html: nil) do |form|
+    mustache_form_for(object, url_for_options: {}, html_options: {}) do |form|
       { key: form[:key], value: form[:value] }
     end
   end
@@ -94,7 +94,6 @@ describe MockFormView do
     input_value, expected_value = "first_name", "Jo"
     form_double = double('MustacheFormDouble')
     subject.test_form_tag.call(input_value)
-    expect(subject.simple_form_called).to eq true
   end
 
   it 'correctly calls the simple_form_for helper' do

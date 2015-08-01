@@ -1,6 +1,6 @@
 # MustacheForm
 
-## Travis CI
+## Builds
 [![Build Status](https://travis-ci.org/netflakes/mustache_form.svg?branch=master)](https://travis-ci.org/netflakes/mustache_form)
 
 
@@ -24,6 +24,19 @@ And then execute:
 Or install it yourself as:
 
     $ gem install mustache_form
+
+
+## Installation - Configuration
+
+Mustache form has an install generator that creates an initializer allowing you to turn on and off
+options. For now the only option is to enable the SimpleForm support globally. Basically this means
+that when this option is turned on - then the simple_form helper will always be used.
+
+You can safely turn this on if you are using simple_form as you can also turn it off for individual
+forms, see below:
+
+
+
 
 ## Usage
 
@@ -128,10 +141,26 @@ module People
 
 ```
 
-#### NB: simple_form gem dependancy
+#### SimpleForm - Simple Fields For
 
-This version has an inbuilt dependancy on the simple_form gem. I intend to remove this dependancy in the next
-build and include an install generator that lets the user decide whether it should be included and enabled or not.
+**Simple Form** also comes with some extra helpers you can use inside rails default forms without relying
+on `simple_form_for` helper. They are listed below.
+
+Wrapper to use **Simple Form** inside a default rails form. It works in the same way that the `fields_for`
+Rails helper, but change the builder to use the `SimpleForm::FormBuilder`.
+
+```ruby
+form_for @user do |f|
+  f.simple_fields_for :posts do |posts_form|
+    # Here you have all simple_form methods available
+    posts_form.input :title
+  end
+end
+```
+
+**Mustache Form** should support these as we are simply yielding to your view method that contains the inputs
+during the process and hence you should be able to use these - though I would caution that I have not had the
+chance to test this feature.
 
 ## Development
 

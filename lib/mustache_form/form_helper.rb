@@ -6,20 +6,37 @@ require 'mustache'
 module MustacheForm
   module FormHelper
 
-    def mustache_form_tag(url: nil, html: nil)
-      MustacheForm.simple_form_enabled == true ? formable = :simple_form_tag : formable = :form_tag
+    # The basic form_tag just wraps the rails form_tag helper and then yields to
+    # the view method that handles the form inputs
+    #
+    #-form_tag(url_for_options = {}, options = {}, &block)
+    #
+    def mustache_form_tag(url_for_options: {}, html_options: {})
+      formable = :form_tag
       lambda do |text|
-        send(formable, url: url, html: html) do |f|
+        send(formable, url_for_options, html_options) do |f|
           obj = FormedMustache.new(yield(f))
           Mustache.render(text, obj).html_safe
         end
       end
     end
 
-    def mustache_form_for(object, url: nil, html: nil)
+    # The form_for version in the basic form wraps the rails form_for helper and
+    # then yields to the method that handles the form inputs. It also handles the
+    # the optional use of the simple_form form helper. Since the method signature
+    # is identical it just needs to call the correct method name
+    #
+    #-form_for(record, options = {}, &block)
+    #-simple_form_for(record, options = {}, &block)
+    #
+    def mustache_form_for(object, url_for_options: {}, html_options: {}, use_rails_form_helper: false)
       MustacheForm.simple_form_enabled == true ? formable = :simple_form_for : formable = :form_for
+      formable = :form_for if use_rails_form_helper
       lambda do |text|
-        send(formable, object, url: url, html: html) do |f|
+        options = {
+          url: url_for_options, html: html_options
+        }
+        send(formable, object, options) do |f|
           obj = FormedMustache.new(yield(f))
           Mustache.render(text, obj).html_safe
         end
