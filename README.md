@@ -1,5 +1,9 @@
 # MustacheForm
 
+## Travis CI
+[![Build Status](https://travis-ci.org/netflakes/mustache_form.svg?branch=master)](https://travis-ci.org/netflakes/mustache_form)
+
+
 This is a small library that adds a set of helper methods to Mustache view classes. Mustache allows complete
 seperation of concerns with view templates. With Mustache, the typical view layer is split up into two sub-layers: a Ruby Class-based "view" and an HTML "template", so you can concentrate on crafting your HTML without polluting it with embedded Ruby logic. This separation also makes it easier to test your view-code. The helper module has wrapper methods for the basic rails form_tag and form_for helpers. The current version also has wrappers for the simple_form form_helpers as well.
 
