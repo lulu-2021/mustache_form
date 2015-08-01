@@ -32,10 +32,14 @@ Mustache form has an install generator that creates an initializer allowing you 
 options. For now the only option is to enable the SimpleForm support globally. Basically this means
 that when this option is turned on - then the simple_form helper will always be used.
 
+
+```
+  rails generate mustache_form:install
+```
+
+
 You can safely turn this on if you are using simple_form as you can also turn it off for individual
 forms, see below:
-
-
 
 
 ## Usage
